@@ -71,13 +71,7 @@ export default function ProfilePage() {
           return;
         }
 
-        // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/details`, {
-        //   method: 'GET',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'Authorization': `Bearer ${token}`
-        //   }
-        // });
+     
 const response = await fetch('/api/auth/me', {
   method: 'GET',
   headers: {
@@ -197,80 +191,6 @@ const response = await fetch('/api/auth/me', {
       toast.success(`File "${file.name}" selected successfully!`);
     }
   };
-
-//   const submitCompletion = async (bidId: string, projectId: string) => {
-//     const uploadedFile = uploadedFiles.get(bidId);
-    
-//     if (!uploadedFile) {
-//       toast.error('Please upload a document before submitting');
-//       return;
-//     }
-
-//     setCompletingBids(prev => new Set(prev).add(bidId));
-
-//     try {
-//       const formData = new FormData();
-//       formData.append('status', 'COMPLETED');
-//       formData.append('bidId', bidId);
-//       formData.append('document', uploadedFile);
-
-//       const token = localStorage.getItem('token');
-      
-//       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/projects/${projectId}/status`, {
-//         method: 'PUT',
-//         headers: {
-//           'Authorization': `Bearer ${token}`
-//         },
-//         body: formData
-//       });
-
-//       if (response.ok) {
-//         toast.success('Project marked as completed successfully!');
-        
-//         // Update the local state
-//         setUser(prevUser => {
-//           if (!prevUser) return null;
-          
-//           return {
-//             ...prevUser,
-//             bids: prevUser.bids.map(bid => 
-//               bid.id === bidId ? { ...bid, bidStatus: 'COMPLETED' } : bid
-//             ),
-//             projectsCreated: prevUser.projectsCreated.map(project =>
-//               project.id === projectId ? { ...project, status: 'COMPLETED' } : project
-//             ),
-//             projectsTaken: prevUser.projectsTaken.map(project =>
-//               project.id === projectId ? { ...project, status: 'COMPLETED' } : project
-//             )
-//           };
-//         });
-
-//         // Clear states
-//         setUploadedFiles(prev => {
-//           const newMap = new Map(prev);
-//           newMap.delete(bidId);
-//           return newMap;
-//         });
-//         setShowUploadPanel(prev => {
-//           const newSet = new Set(prev);
-//           newSet.delete(bidId);
-//           return newSet;
-//         });
-//       } else {
-//         const errorData = await response.json();
-//         toast.error(errorData.message || 'Failed to mark project as completed');
-//       }
-//     } catch (error) {
-//       console.error('Error marking bid as completed:', error);
-//       toast.error('Failed to mark project as completed');
-//     } finally {
-//       setCompletingBids(prev => {
-//         const newSet = new Set(prev);
-//         newSet.delete(bidId);
-//         return newSet;
-//       });
-//     }
-//   };
 const submitCompletion = async (bidId: string, projectId: string) => {
   const uploadedFile = uploadedFiles.get(bidId);
 
